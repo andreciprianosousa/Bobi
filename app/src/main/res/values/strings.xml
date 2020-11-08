@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Bobi</string>
+
+    <!-- Login -->
+    <string name="hint_username">Your username goes here</string>
+    <string name="hint_password">Your password goes here</string>
+    <string name="action_authenticate">Authenticate</string>
+    <string name="save_credentials">Save credentials</string>
+    <string name="error_invalid_credentials">Invalid credentials</string>
 </resources>

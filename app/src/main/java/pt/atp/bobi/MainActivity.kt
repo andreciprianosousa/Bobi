@@ -35,8 +35,8 @@ class  MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private val positiveButtonClick = { _: DialogInterface, _: Int -> Toast.makeText(applicationContext, "Nice", Toast.LENGTH_SHORT).show() }
-    private val negativeButtonClick = { _: DialogInterface, _: Int -> Toast.makeText(applicationContext, "Damn", Toast.LENGTH_SHORT).show() }
+    private val positiveButtonClick = { _: DialogInterface, _: Int -> Toast.makeText(applicationContext, "Nice!", Toast.LENGTH_SHORT).show() }
+    private val negativeButtonClick = { _: DialogInterface, _: Int -> Toast.makeText(applicationContext, "Damn!", Toast.LENGTH_SHORT).show() }
     private fun activateAlertDialog(){
         val alert = AlertDialog.Builder(this)
         alert.setTitle("Bobi")
