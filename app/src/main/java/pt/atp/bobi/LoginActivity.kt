@@ -46,7 +46,6 @@ class LoginActivity : AppCompatActivity(){
             findViewById<TextView>(R.id.tv_error).visibility = View.VISIBLE
             return false
         }
-
         return username == password
     }
 }
