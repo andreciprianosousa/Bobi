@@ -41,11 +41,13 @@ class LoginActivity : AppCompatActivity(){
     private fun areCredentialsValid(): String{
         val username = findViewById<EditText>(R.id.editTextTextPersonName).text.toString()
         if(username.isEmpty()){
+            findViewById<TextView>(R.id.tv_error).text = getString(R.string.error_credentials_empty_username)
             findViewById<TextView>(R.id.tv_error).visibility = View.VISIBLE
             return "false"
         }
         val password = findViewById<EditText>(R.id.editTextTextPassword).text.toString()
         if(password.isEmpty()){
+            findViewById<TextView>(R.id.tv_error).text = getString(R.string.error_credentials_empty_password)
             findViewById<TextView>(R.id.tv_error).visibility = View.VISIBLE
             return "false"
         }
@@ -54,6 +56,7 @@ class LoginActivity : AppCompatActivity(){
             return username
         }
         else{
+            findViewById<TextView>(R.id.tv_error).text = getString(R.string.error_credentials_mismatch)
             findViewById<TextView>(R.id.tv_error).visibility = View.VISIBLE
             return "false"
         }

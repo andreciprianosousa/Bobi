@@ -20,7 +20,7 @@ class  MainActivity : AppCompatActivity() {
 
         // Change title based on user name
         val intent = intent
-        findViewById<TextView>(R.id.textViewUser).text = intent.getStringExtra("username").toString()
+        findViewById<TextView>(R.id.textViewUser).text = ("Hello " + intent.getStringExtra("username")).toString()
 
         findViewById<Button>(R.id.buttonCamera).setOnClickListener{
             openNativeCamera()
@@ -41,20 +41,20 @@ class  MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private val positiveButtonClick = { _: DialogInterface, _: Int -> Toast.makeText(applicationContext, "Nice!", Toast.LENGTH_SHORT).show() }
-    private val negativeButtonClick = { _: DialogInterface, _: Int -> Toast.makeText(applicationContext, "Damn!", Toast.LENGTH_SHORT).show() }
+    private val positiveButtonClick = { _: DialogInterface, _: Int -> Toast.makeText(applicationContext, getString(R.string.inner_alert_positive_button), Toast.LENGTH_SHORT).show() }
+    private val negativeButtonClick = { _: DialogInterface, _: Int -> Toast.makeText(applicationContext, getString(R.string.inner_alert_negative_button), Toast.LENGTH_SHORT).show() }
     private fun activateAlertDialog(){
         val alert = AlertDialog.Builder(this)
-        alert.setTitle("Bobi")
-        alert.setMessage("Teste")
-        alert.setPositiveButton("OK", DialogInterface.OnClickListener(function = positiveButtonClick))
-        alert.setNegativeButton("Cancel", DialogInterface.OnClickListener(function = negativeButtonClick))
+        alert.setTitle(getString(R.string.activity_title))
+        alert.setMessage(getString(R.string.alert_dialog_message))
+        alert.setPositiveButton(getString(R.string.alert_dialog_positive_button), DialogInterface.OnClickListener(function = positiveButtonClick))
+        alert.setNegativeButton(getString(R.string.alert_dialog_negative_button), DialogInterface.OnClickListener(function = negativeButtonClick))
         alert.show()
     }
 
     private fun displaySnackbar(){
         val parentLayout = findViewById<View>(android.R.id.content)
-        val snack = Snackbar.make(parentLayout, "This is a simple Snackbar", Snackbar.LENGTH_SHORT)
+        val snack = Snackbar.make(parentLayout, getString(R.string.snackbar_text), Snackbar.LENGTH_SHORT)
         snack.show()
     }
 }
