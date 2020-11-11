@@ -18,7 +18,7 @@
             android:src="@drawable/ic_launcher_foreground"/>
 
         <EditText
-            android:imeOptions="actionSearch"
+            android:imeOptions="actionNext"
             android:id="@+id/editTextUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
             android:textColorHint="@android:color/darker_gray"/>
 
         <EditText
-            android:imeOptions="actionSearch"
+            android:imeOptions="actionNext"
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

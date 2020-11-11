@@ -22,7 +22,7 @@ class LoginActivity : AppCompatActivity(){
 
         // "Done" on keyboard search
         findViewById<EditText>(R.id.editTextPassword).setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
                 val check = areCredentialsValid()
                 if(check != "false"){
                     val intent = Intent(this, MainActivity::class.java)
