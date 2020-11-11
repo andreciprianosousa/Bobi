@@ -20,8 +20,11 @@ class LoginActivity : AppCompatActivity(){
 
         // Authenticate Button
         findViewById<Button>(R.id.btn_auth).setOnClickListener{
-            if(areCredentialsValid()){
+
+            val check = areCredentialsValid()
+            if(check != "false"){
                 val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("username", check)
                 startActivity(intent)
                 finish()
             }
@@ -35,17 +38,25 @@ class LoginActivity : AppCompatActivity(){
         //--------- End Setup  ------------
     }
 
-    private fun areCredentialsValid(): Boolean{
+    private fun areCredentialsValid(): String{
         val username = findViewById<EditText>(R.id.editTextTextPersonName).text.toString()
         if(username.isEmpty()){
             findViewById<TextView>(R.id.tv_error).visibility = View.VISIBLE
-            return false
+            return "false"
         }
         val password = findViewById<EditText>(R.id.editTextTextPassword).text.toString()
         if(password.isEmpty()){
             findViewById<TextView>(R.id.tv_error).visibility = View.VISIBLE
-            return false
+            return "false"
         }
-        return username == password
+
+        if (username == password){
+            return username
+        }
+        else{
+            findViewById<TextView>(R.id.tv_error).visibility = View.VISIBLE
+            return "false"
+        }
+
     }
 }

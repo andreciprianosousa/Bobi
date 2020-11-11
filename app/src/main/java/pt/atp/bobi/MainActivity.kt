@@ -2,10 +2,12 @@ package pt.atp.bobi
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +18,9 @@ class  MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Change title based on user name
+        val intent = intent
+        findViewById<TextView>(R.id.textViewUser).text = intent.getStringExtra("username").toString()
 
         findViewById<Button>(R.id.buttonCamera).setOnClickListener{
             openNativeCamera()
@@ -28,6 +33,7 @@ class  MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.buttonSnackbar).setOnClickListener{
             displaySnackbar()
         }
+
     }
 
     private fun openNativeCamera(){
@@ -48,7 +54,7 @@ class  MainActivity : AppCompatActivity() {
 
     private fun displaySnackbar(){
         val parentLayout = findViewById<View>(android.R.id.content)
-        val snack = Snackbar.make(parentLayout,"This is a simple Snackbar", Snackbar.LENGTH_SHORT)
+        val snack = Snackbar.make(parentLayout, "This is a simple Snackbar", Snackbar.LENGTH_SHORT)
         snack.show()
     }
 }
