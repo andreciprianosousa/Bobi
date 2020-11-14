@@ -5,78 +5,77 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
-import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.TextView.OnEditorActionListener
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.observe
 
 
-class LoginActivity : AppCompatActivity(){
+class LoginActivity : AppCompatActivity() {
+
+    private val viewModel: LoginViewModel by viewModels() // Using activity-ktx (in gradle dependencies) to quickly create a viewModel. There are other ways to do this, this is the quickest
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        //--------- Setup - Active components------------
+        setup()
 
-        // "Done" on keyboard search
-        findViewById<EditText>(R.id.editTextPassword).setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+    }
+
+    private fun setup() {
+        findViewById<EditText>(R.id.editTextPassword).setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                val check = areCredentialsValid()
-                if(check != "false"){
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.putExtra("username", check)
-                    startActivity(intent)
-                    finish()
-                }
-                return@OnEditorActionListener true
+                validateCredentialsAndRedirect()
             }
-            false
-        })
+            true
+        }
 
-        // Authenticate Button
-        findViewById<Button>(R.id.btn_auth).setOnClickListener{
+        findViewById<EditText>(R.id.editTextPassword).setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                validateCredentialsAndRedirect()
+            }
+            true
+        }
 
-            val check = areCredentialsValid()
-            if(check != "false"){
+        findViewById<Button>(R.id.btn_auth).setOnClickListener {
+            validateCredentialsAndRedirect()
+        }
+
+        viewModel.loginResultLiveData.observe(this){ loginResult ->
+            if (!loginResult) {
+                findViewById<TextView>(R.id.tv_error).text = getString(R.string.error_credentials_mismatch)
+                findViewById<TextView>(R.id.tv_error).visibility = View.VISIBLE
+            }else{
+                val username = findViewById<EditText>(R.id.editTextUsername).text.toString()
+
                 val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("username", check)
+                intent.putExtra("username", username)
+
                 startActivity(intent)
                 finish()
             }
         }
-
-        // Save Credentials Check Box
-        findViewById<CheckBox>(R.id.checkBox_save_credentials).setOnClickListener{
-                TODO()
-        }
-
-        //--------- End Setup  ------------
     }
 
-    private fun areCredentialsValid(): String{
+    private fun validateCredentialsAndRedirect() {
+
         val username = findViewById<EditText>(R.id.editTextUsername).text.toString()
-        if(username.isEmpty()){
+        if (username.isEmpty()) {
             findViewById<TextView>(R.id.tv_error).text = getString(R.string.error_credentials_empty_username)
             findViewById<TextView>(R.id.tv_error).visibility = View.VISIBLE
-            return "false"
-        }
-        val password = findViewById<EditText>(R.id.editTextPassword).text.toString()
-        if(password.isEmpty()){
-            findViewById<TextView>(R.id.tv_error).text = getString(R.string.error_credentials_empty_password)
-            findViewById<TextView>(R.id.tv_error).visibility = View.VISIBLE
-            return "false"
+            return
         }
 
-        if (username == password){
-            return username
-        }
-        else{
-            findViewById<TextView>(R.id.tv_error).text = getString(R.string.error_credentials_mismatch)
+        val password = findViewById<EditText>(R.id.editTextPassword).text.toString()
+        if (password.isEmpty()) {
+            findViewById<TextView>(R.id.tv_error).text = getString(R.string.error_credentials_empty_password)
             findViewById<TextView>(R.id.tv_error).visibility = View.VISIBLE
-            return "false"
+            return
         }
+
+        viewModel.areCredentialsValid(username, password)
 
     }
 }

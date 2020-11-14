@@ -1,65 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purple_700"
-    android:padding="16dp"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_launcher_foreground"/>
+            android:src="@drawable/ic_launcher_foreground" />
 
         <EditText
-            android:imeOptions="actionNext"
             android:id="@+id/editTextUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/hint_username"
+            android:imeOptions="actionNext"
             android:inputType="textPersonName"
             android:textColor="@color/white"
-            android:textColorHint="@android:color/darker_gray"/>
+            android:textColorHint="@android:color/darker_gray" />
 
         <EditText
-            android:imeOptions="actionNext"
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/hint_password"
+            android:imeOptions="actionNext"
             android:inputType="textPassword"
             android:textColor="@color/white"
-            android:textColorHint="@android:color/darker_gray"/>
+            android:textColorHint="@android:color/darker_gray" />
 
         <TextView
             android:id="@+id/tv_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
-            android:textColor="@android:color/holo_red_dark"/>
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="invisible" />
 
         <CheckBox
             android:id="@+id/checkBox_save_credentials"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/save_credentials"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:text="@string/action_save_credentials"/>
+
 
         <Button
             android:id="@+id/btn_auth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/action_authenticate"
             android:textColor="@color/black"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:text="@string/action_authenticate"/>
+
     </LinearLayout>
 
 
