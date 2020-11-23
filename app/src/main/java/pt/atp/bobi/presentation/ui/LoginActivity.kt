@@ -1,4 +1,4 @@
-package pt.atp.bobi
+package pt.atp.bobi.presentation.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +10,8 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.observe
+import pt.atp.bobi.R
+import pt.atp.bobi.presentation.LoginViewModel
 
 
 class LoginActivity : AppCompatActivity() {

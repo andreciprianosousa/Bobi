@@ -1,16 +1,13 @@
-package pt.atp.bobi
+package pt.atp.bobi.presentation.ui
 
 import android.Manifest
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -21,12 +18,18 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.observe
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.snackbar.Snackbar
-import java.io.File
+import pt.atp.bobi.R
+import pt.atp.bobi.presentation.MainViewModel
 
 private const val TAG = "MainActivity"
 private const val REQUEST_IMAGE_CAPTURE = 100
 private const val REQUEST_READ_STORAGE = 500
+
+private const val FIFI = "https://github.com/android-training-program/aula-5/blob/master/imagens/fifi.jpg?raw=true"
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,8 +46,8 @@ class MainActivity : AppCompatActivity() {
             openNativeCamera()
         }
 
-        findViewById<Button>(R.id.open_details).setOnClickListener {
-            openDetailsActivity()
+        findViewById<Button>(R.id.open_list).setOnClickListener {
+            openListActivity()
         }
 
         findViewById<Button>(R.id.show_dialog).setOnClickListener {
@@ -59,11 +62,15 @@ class MainActivity : AppCompatActivity() {
             startTimer()
         }
 
+        Glide.with(this)
+            .load(FIFI)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .fitCenter()
+            .into(findViewById(R.id.imageView))
+
         val tvStartTimer = findViewById<TextView>(R.id.tv_counter)
         viewModel.timerLiveDate.observe(this) { count ->
             tvStartTimer.text = count.toString()
-            if(count == 0L)
-                loadImage()
         }
     }
 
@@ -87,8 +94,8 @@ class MainActivity : AppCompatActivity() {
     /**
      * Calling this method will open a new activity.
      */
-    private fun openDetailsActivity() {
-        val intent = Intent(this, DetailsActivity::class.java)
+        private fun openListActivity() {
+        val intent = Intent(this, ListActivity::class.java)
         startActivity(intent)
     }
 
@@ -171,7 +178,8 @@ class MainActivity : AppCompatActivity() {
             ActivityCompat
                 .requestPermissions(this,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    REQUEST_READ_STORAGE)
+                    REQUEST_READ_STORAGE
+                )
 
 
             return false
@@ -180,8 +188,4 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    private fun loadImage(){
-
-      TODO()
-    }
 }

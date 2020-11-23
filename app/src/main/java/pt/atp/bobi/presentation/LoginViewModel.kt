@@ -1,4 +1,4 @@
-package pt.atp.bobi
+package pt.atp.bobi.presentation
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +9,8 @@ class LoginViewModel : ViewModel() {
     val loginResultLiveData = _loginResult
 
     fun areCredentialsValid(username: String, password: String) {
+
+        // ir ao servidor
 
         loginResultLiveData.postValue(username == password)
     }
